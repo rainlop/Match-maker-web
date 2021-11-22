@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+
+
+<!--
+    Author: Rain Lopez
+    Project: MatchMaker for the Web
+
+    All rights reserved.
+-->
+<head>
+    <meta charset="UTF-8">
+    <title>MatchMaker </title>
+<link rel="stylesheet" href="matchmaker.css">
+</head>
+
+<body>
+    <h1> MatchMaker</h1>
+    <h2> Rain Lopez</h2>
+    <p> This program will help determine if the both of us are compatible with each other.
+        There will be 5 questions that you will answer.
+        Each question will have a drop down and you will select your answer.
+        The options listed are "Strongly Agree", "Agree", "Neutral", "Agree", and "Strongly Disagree".
+        When you have finished selecting your options, click the "Calculate Compatibility" button.
+        When you press it, it will give you a score from 1-100 showing if we are compatible or not. :)
+    </p>
+
+    <label>Chocolate is delicious</label><br />
+    <select id="q1">
+      <option value="5">Strongly Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br />
+    
+    <label>Cats are a great animal/pet.</label><br />
+    <select id="q2">
+      <option value="5">Strongly Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br />
+
+    <label>Video games suck.</label><br />
+    <select id="q3">
+      <option value="5">Strongly Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br />
+
+    <label>Seafood is great.</label><br />
+    <select id="q4">
+      <option value="5">Strongly Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br />
+
+    <label>Fall is the best season.</label><br />
+    <select id="q5">
+      <option value="5">Strongly Agree</option>
+      <option value="4">Agree</option>
+      <option value="3">Neutral</option>
+      <option value="2">Disagree</option>
+      <option value="1">Strongly Disagree</option>
+    </select>
+
+    <br /><br /><br />
+    <button onclick="calculateCompatibility()">Calculate Compatibility</button>
+    <p id="compatibility"></p>
+    <p2 id="remark"></p>
+
+
+<script>
+console.log("Starting MatchMaker");
+
+function calculateCompatibility() {
+    console.log("calculateCompatibility()");
+
+    const DESIRED_RESPONSE = [
+        5,
+        5,
+        1,
+        2,
+        5,
+    ]
+
+    const MAX_SCORE = 25
+
+    let question1Response = document.getElementById("q1").selectedOptions[0].value;
+    let question2Response = document.getElementById("q2").selectedOptions[0].value;
+    let question3Response = document.getElementById("q3").selectedOptions[0].value;
+    let question4Response = document.getElementById("q4").selectedOptions[0].value;
+    let question5Response = document.getElementById("q5").selectedOptions[0].value;
+
+    console.log("Question 1 Answers:")
+    console.log(document.getElementById("q1").selectedOptions[0].text);
+    console.log(document.getElementById("q1").selectedOptions[0].value);
+    console.log(question1Response);
+    
+    console.log("Question 2 Answers:")
+    console.log(document.getElementById("q2").selectedOptions[0].text);
+    console.log(document.getElementById("q2").selectedOptions[0].value);
+    console.log(question2Response);
+
+    console.log("Question 3 Answers:")
+    console.log(document.getElementById("q3").selectedOptions[0].text);
+    console.log(document.getElementById("q3").selectedOptions[0].value)
+    console.log(question3Response);
+
+    console.log("Question 4 Answers:")
+    console.log(document.getElementById("q4").selectedOptions[0].text);
+    console.log(document.getElementById("q4").selectedOptions[0].value);
+    console.log(question4Response);
+
+    console.log("Question 5 Answers:")
+    console.log(document.getElementById("q5").selectedOptions[0].text);
+    console.log(document.getElementById("q5").selectedOptions[0].value);
+    console.log(question5Response);
+
+    let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
+    let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1]);
+    let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
+    let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
+    let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
+
+    console.log("c1="+question1Compatibility);
+    console.log("c2="+question2Compatibility);
+    console.log("c3="+question3Compatibility);
+    console.log("c4="+question4Compatibility);
+    console.log("c5="+question5Compatibility);
+
+    let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility +question5Compatibility;
+
+    totalCompatibility *= 100 / MAX_SCORE;
+    totalCompatibility = Math.round(totalCompatibility);
+    console.log("totalCompatibility="+totalCompatibility);
+     
+    if (totalCompatibility == 100) {
+      compatibilityRange = "Yay we are compatible!";
+    } else if (totalCompatibility > 70) {
+      compatibilityRange = "I'll consider you...";
+    } else {
+      compatibilityRange = "Get away from me!"
+    }
+  
+
+    document.getElementById("compatibility").innerHTML = "Your compatibility is: " +totalCompatibility;
+    document.getElementById("remark").innerHTML = "" +compatibilityRange;
+
+}
+
+</script>
+
+
+</body>
+</html>
